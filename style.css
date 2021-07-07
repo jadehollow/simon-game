@@ -3,6 +3,13 @@ body {
   background-color: #011F3F;
 }
 
+h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: calc(0.5rem + 1vw);
+  margin:  5%;
+  color: #FEF2BF;
+}
+
 #level-title {
   font-family: 'Press Start 2P', cursive;
   font-size: calc(1.5rem + 1vw);
@@ -17,7 +24,7 @@ body {
 
 }
 
-.btn {
+.play-button {
   margin: 1.5625rem;
   display: inline-block;
   height: 200px;

@@ -3,6 +3,7 @@ let gamePattern = [];
 let userPattern = [];
 let started = false;
 let level = 0;
+let bestLevel = 0;
 
 // $(document).one("keydown", function (e) {
 //     console.log(e.key);
@@ -10,7 +11,7 @@ let level = 0;
 //     nextSequence();
 // });
 
-$(document).on("keydown touchstart", () => {
+$(".start-button").on("click touchstart", () => {
     if (!started) {
         $("#level-title").text(`Level ${level}`);
         nextSequence();
@@ -26,7 +27,7 @@ $(".btn").on("click", function () {
     checkAnswer(userPattern.length - 1);
 });
 
-function checkAnswer(currentColor) {
+checkAnswer = (currentColor) => {
     if (gamePattern[currentColor] === userPattern[currentColor]) {
 
         if (userPattern.length === gamePattern.length) {
@@ -34,39 +35,55 @@ function checkAnswer(currentColor) {
         }
     } else if (userPattern.length !== gamePattern.length) {
         playSound("wrong");
-        $("#level-title").text("You Lose! Press Any Key to Restart");
+        $("#level-title").text("You Lose! Press Start to Play Again");
         $("body").addClass("game-over");
         setTimeout(() => $("body").removeClass("game-over"), 200);
         startOver();
     }
 };
 
-function nextSequence() {
+nextSequence = () => {
+    updateLevelText();
     userPattern = [];
     level++;
-    $("#level-title").text(`Level ${level}`);
+    $("#level-title").text(`Level ${level - 1}`);
     let randomNumber = Math.floor(Math.random() * 4)
     let randomChosenColor = buttonColors[randomNumber];
     gamePattern.push(randomChosenColor);
-    console.log(gamePattern);
-    $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100);
-    playSound(randomChosenColor);
+    playSeq();
 };
 
-function playSound(name) {
+playSeq = () => {
+    let i = 0;
+    let seq = setInterval(() => {
+      animatePress(gamePattern[i]);
+      playSound(gamePattern[i]);
+      i++;
+      if (i >= gamePattern.length) {
+        clearInterval(seq);
+      }
+    }, 700)
+    userPattern = [];
+  }
+
+playSound = (name) => {
     let color = new Audio("sounds/" + name + ".mp3");
     color.play();
 };
 
-function animatePress(currentColor) {
+animatePress = (currentColor) => {
     let $activeColor = $("#" + currentColor);
     $activeColor.addClass("pressed");
     setTimeout(() => $activeColor.removeClass("pressed"), 100);
 };
 
-function startOver() {
+startOver = () => {
     level = 0;
     gamePattern = [];
     started = false;
 };
 
+updateLevelText = () => {
+	bestLevel = Math.max(level, bestLevel);
+	$("h3").text(`Current Level: ${level} // Best Level: ${bestLevel}`);
+};
