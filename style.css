@@ -3,17 +3,18 @@ body {
   background-color: #011F3F;
 }
 
-h3 {
-  font-family: 'Press Start 2P', cursive;
-  font-size: calc(0.5rem + 1vw);
-  margin:  1.875rem 4.6875rem 1.875rem;
-  color: #FEF2BF;
+.container {
+  display: flex;
+  width: 50%;
+  margin: auto;
 }
 
+/* ///// Top Section ///// */
 #level-title {
   font-family: 'Press Start 2P', cursive;
-  font-size: calc(1.5rem + 1vw);
-  margin:  1.875rem 4.6875rem 1.875rem;
+  font-size: calc(1.2rem + 1vw);
+  margin-top: 1.875rem;
+  margin-bottom: 1.25rem;
   color: #FEF2BF;
 }
 
@@ -22,13 +23,7 @@ h3 {
   color: #FEF2BF;
 }
 
-.container {
-  display: flex;
-  width: 50%;
-  margin: auto;
-
-}
-
+/* ///// Game Section ///// */
 .play-button {
   margin: 1.5625rem;
   display: inline-block;
@@ -62,6 +57,15 @@ h3 {
 .pressed {
   box-shadow: 0 0 20px white;
   background-color: grey;
+}
+
+/* ///// Bottom Section ///// */
+h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: calc(0.5rem + 1vw);
+  margin-top: 0.625rem;
+  margin-bottom: 1.25rem;
+  color: #FEF2BF;
 }
 
 footer {

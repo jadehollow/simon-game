@@ -5,12 +5,7 @@ let started = false;
 let level = 0;
 let bestLevel = 0;
 
-// $(document).one("keydown", function (e) {
-//     console.log(e.key);
-//     $("#level-title").text(`Level ${level}`);
-//     nextSequence();
-// });
-
+///// To start the game:
 $(".start-button").on("click touchstart", () => {
     if (!started) {
         $("#level-title").text(`Level ${level}`);
@@ -19,7 +14,8 @@ $(".start-button").on("click touchstart", () => {
     }
 });
 
-$(".btn").on("click", function () {
+///// When user clicks a color's button:
+$(".play-button").on("click", function () {
     let $userChosenColor = $(this).attr("id");
     userPattern.push($userChosenColor);
     playSound($userChosenColor);
@@ -27,6 +23,7 @@ $(".btn").on("click", function () {
     checkAnswer(userPattern.length - 1);
 });
 
+///// Check user response against the game's answer:
 checkAnswer = (currentColor) => {
     if (gamePattern[currentColor] === userPattern[currentColor]) {
 
@@ -42,6 +39,7 @@ checkAnswer = (currentColor) => {
     }
 };
 
+///// Game sequences:
 nextSequence = () => {
     updateLevelText();
     userPattern = [];
@@ -66,23 +64,27 @@ playSeq = () => {
     userPattern = [];
   }
 
+///// Button audio:
 playSound = (name) => {
     let color = new Audio("sounds/" + name + ".mp3");
     color.play();
 };
 
+///// Animate button:
 animatePress = (currentColor) => {
     let $activeColor = $("#" + currentColor);
     $activeColor.addClass("pressed");
     setTimeout(() => $activeColor.removeClass("pressed"), 100);
 };
 
+///// Restart the game:
 startOver = () => {
     level = 0;
     gamePattern = [];
     started = false;
 };
 
+///// Change Best Level counter:
 updateLevelText = () => {
 	bestLevel = Math.max(level, bestLevel);
 	$("h3").text(`Current Level: ${level} // Best Level: ${bestLevel}`);
